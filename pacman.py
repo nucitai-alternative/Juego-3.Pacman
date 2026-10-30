@@ -11,7 +11,7 @@ writer = Turtle(visible=False)
 aim = vector(5, 0)
 # Posición de Pacman en coordenadas de rejilla.
 pacman = vector(-40, -80)
-# Fantasmas: posición y dirección de cada uno y 4 fantasmas en las esquinas del laberinto
+# fantasmas: posición y dirección de cada uno y 4 fantasmas en las esquinas del laberinto
 ghosts = [
     [vector(-180, 160), vector(10, 0)],
     [vector(-180, -160), vector(0, 10)],
