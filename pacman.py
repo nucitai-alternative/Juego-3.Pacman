@@ -11,12 +11,12 @@ writer = Turtle(visible=False)
 aim = vector(5, 0)
 # Posición de Pacman en coordenadas de rejilla.
 pacman = vector(-40, -80)
-# Fantasmas: posición y dirección de cada uno y 4 fantasmas en las esquinas del laberinto
+# fantasmas: posición y dirección de cada uno y 4 fantasmas en las esquinas del laberinto
 ghosts = [
-    [vector(-180, 160), vector(5, 0)],
-    [vector(-180, -160), vector(0, 5)],
-    [vector(100, 160), vector(0, -5)],
-    [vector(100, -160), vector(-5, 0)],
+    [vector(-180, 160), vector(10, 0)],
+    [vector(-180, -160), vector(0, 10)],
+    [vector(100, 160), vector(0, -10)],
+    [vector(100, -160), vector(-10, 0)],
 ]
 
 # Tablero
@@ -45,9 +45,20 @@ tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]
 
+# se agregaron nuevos caminos para cambiar un poco el diseño del tablero
+tiles[2 * 20 + 2] = 1
+tiles[2 * 20 + 3] = 1
+tiles[4 * 20 + 2] = 1
+tiles[4 * 20 + 3] = 1
+tiles[6 * 20 + 2] = 1
+tiles[6 * 20 + 3] = 1
+tiles[8 * 20 + 7] = 1
+tiles[8 * 20 + 8] = 1
+
+
 #Funciones auxiliares
 def square(x, y):
-    "Draw square using path at (x, y)."
+    "Draw square using path."
     path.up()
     path.goto(x, y)
     path.down()
@@ -59,12 +70,14 @@ def square(x, y):
 
     path.end_fill()
 
+
 def offset(point):
     "Return offset of point in tiles."
     x = (floor(point.x, 20) + 200) / 20
     y = (180 - floor(point.y, 20)) / 20
     index = int(x + y * 20)
     return index
+
 
 def valid(point):
     "Return True if point is valid in tiles."
@@ -79,6 +92,7 @@ def valid(point):
         return False
 
     return point.x % 20 == 0 or point.y % 20 == 0
+
 
 def world():
     "Draw world using path."
@@ -98,6 +112,7 @@ def world():
                 path.goto(x + 10, y + 10)
                 path.dot(2, 'white')
 
+
 # Movimiento
 def move():
     "Move pacman and all ghosts."
@@ -105,10 +120,10 @@ def move():
     writer.write(state['score'])
 
     clear()
- #Mover pacman 
+    #Mover pacman 
     if valid(pacman + aim):
         pacman.move(aim)
- #Comer pellet 
+    #Comer pellet 
     index = offset(pacman)
 
     if tiles[index] == 1:
@@ -127,10 +142,10 @@ def move():
     # Mover y dibujar fantasmas: persiguen a Pacman.
     for point, course in ghosts:
         options = [
-            vector(5, 0),
-            vector(-5, 0),
-            vector(0, 5),
-            vector(0, -5),
+            vector(10, 0),
+            vector(-10, 0),
+            vector(0, 10),
+            vector(0, -10),
         ]
         options = [o for o in options if valid(point + o)]
 
@@ -155,11 +170,13 @@ def move():
 
     ontimer(move, 100)
 
+
 def change(x, y):
     "Change pacman aim if valid."
     if valid(pacman + vector(x, y)):
         aim.x = x
         aim.y = y
+
 
 #Inicializacion del juego
 setup(420, 420, 370, 0)
