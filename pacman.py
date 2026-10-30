@@ -20,7 +20,7 @@ ghosts = [
 ]
 
 # Tablero
-# Muestra: 0 = muro, 1 = comida (pellet), 2 = comida ya consumida
+#0 = pared
 
 tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
