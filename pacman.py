@@ -2,11 +2,16 @@ from random import choice
 from turtle import *
 from freegames import floor, vector
 
+# Estado global del juego
+
 state = {'score': 0}
 path = Turtle(visible=False)
 writer = Turtle(visible=False)
+# Dirección actual de Pacman (vector unitario).
 aim = vector(5, 0)
+# Posición de Pacman en coordenadas de rejilla.
 pacman = vector(-40, -80)
+# Fantasmas: posición y dirección de cada uno.
 ghosts = [
     [vector(-180, 160), vector(5, 0)],
     [vector(-180, -160), vector(0, 5)],
