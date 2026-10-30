@@ -2,7 +2,7 @@ from random import choice
 from turtle import *
 from freegames import floor, vector
 
-# Estado global del juego
+# estado global del juego
 
 state = {'score': 0}
 path = Turtle(visible=False)
