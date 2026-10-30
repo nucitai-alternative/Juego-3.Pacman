@@ -124,21 +124,23 @@ def move():
     goto(pacman.x + 10, pacman.y + 10)
     dot(20, 'yellow')
 
- #Mover y dibujar fantasmas 
+    # Mover y dibujar fantasmas: persiguen a Pacman.
     for point, course in ghosts:
-        if valid(point + course):
-            point.move(course)
-        else:
-            # elegir dirección aleatoria
-            options = [
-                vector(5, 0),
-                vector(-5, 0),
-                vector(0, 5),
-                vector(0, -5),
-            ]
-            plan = choice(options)
-            course.x = plan.x
-            course.y = plan.y
+        options = [
+            vector(5, 0),
+            vector(-5, 0),
+            vector(0, 5),
+            vector(0, -5),
+        ]
+        options = [o for o in options if valid(point + o)]
+
+        if options:
+            # Persecución inteligente: elige la dirección que deja al fantasma más cerca de Pacman
+            best = min(options, key=lambda o: abs(point + o - pacman))
+            course.x = best.x
+            course.y = best.y
+
+        point.move(course)
 
         up()
         goto(point.x + 10, point.y + 10)
@@ -146,10 +148,10 @@ def move():
 
     update()
 
-#Detección de colisión (fin del juego)
+    # Detección de colisión (fin del juego).
     for point, course in ghosts:
         if abs(pacman - point) < 20:
-            return #el juego se detiene
+            return  # El juego se detiene.
 
     ontimer(move, 100)
 
